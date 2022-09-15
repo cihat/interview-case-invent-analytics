@@ -1,0 +1,41 @@
+GET http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:3000/users/login HTTP/1.1
+content-type: application/json
+
+###
+
+POST  http://localhost:3000/users/register HTTP/1.1
+content-type: application/json
+
+{
+  "user": {
+    "username": "testtest3",
+    "name": "Test Test3",
+    "email": "test3@test.com",
+    "password": "test123123!",
+    "passwordConfirmation": "test123123!"
+  }
+}
+
+###
+
+GET http://localhost:3000/users/session
+content-type: application/json
+
+{
+  "user": {
+    "email": "test@test.com",
+    "password": "test123123!"
+  }
+}
+
+###
+
+DELETE  http://localhost:3000/users/session HTTP/1.1
+content-type: application/json
+
+###
