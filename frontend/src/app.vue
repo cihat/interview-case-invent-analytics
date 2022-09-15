@@ -1,12 +1,32 @@
+<script>
+import { mapGetters, mapActions } from 'vuex'
+export default {
+  name: 'app',
+  computed: {
+    ...mapGetters('user', ['isLoggedIn']),
+    selectedKeys() {
+      return [this.$route.name]
+    },
+    layout() {
+      return `${this.$route.meta.layout || 'feed'}-layout`
+    },
+  },
+  async created() {
+    await this.init()
+    // !this.isLoggedIn ? this.$router.push({ path: '/login' }) : this.$router.push({ path: '/' })
+  },
+  methods: {
+    ...mapActions('user', ['init']),
+  },
+}
+</script>
+  
 <template lang="pug">
 #app
-  #nav
-    router-link(to="/") Home
-    span &nbsp;|&nbsp;
-    router-link(to="/about") About
-  router-view
-</template>
-
+  .layout-wrapper
+    component(:is='layout' :selectedKeys="selectedKeys")
+  </template>
+  
 <style lang="scss">
 @import '@/assets/theme.scss';
 </style>
