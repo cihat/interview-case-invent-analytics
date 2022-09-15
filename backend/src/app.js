@@ -11,7 +11,8 @@ const sanitize = require('express-mongo-sanitize').sanitize
 const { errors } = require('celebrate')
 
 const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/user')
+const userRouter = require('./routes/user')
+const bookRouter = require('./routes/book')
 
 const mongooseConnection = require('./database-connection')
 
@@ -56,7 +57,8 @@ app.all('*', (req, res, next) => {
 })
 
 app.use('/', indexRouter)
-app.use('/user', usersRouter)
+app.use('/users', userRouter)
+app.use("/books", bookRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
