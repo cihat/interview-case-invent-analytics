@@ -15,13 +15,20 @@ const userSchema = new Schema(
     username: { type: String, unique: true, required: false },
     email: { type: String, required: true, unique: true },
     sessionId: String,
-    // books: [
-    //   {
-    //     type: 'ObjectId',
-    //     ref: 'Book',
-    //     autopopulate: true,
-    //   },
-    // ],
+    borrowedBooks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Book',
+        autopopulate: true,
+      }
+    ],
+    receivedBooks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Book',
+        autopopulate: true,
+      }
+    ],
   },
   { timestamps: true }
 )

@@ -25,7 +25,21 @@ const bookSchema = new Schema(
       maxlength: 64,
       unique: false,
     },
+    borrowedBy: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        autopopulate: true,
+      }
+    ],
+    receivedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      autopopulate: true,
+    }
   }
 )
+
+bookSchema.plugin(autopopulate)
 
 module.exports = mongoose.model('Book', bookSchema)
