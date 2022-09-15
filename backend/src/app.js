@@ -1,5 +1,6 @@
 const createError = require('http-errors')
 const express = require('express')
+const cors = require('cors')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
@@ -17,6 +18,8 @@ const bookRouter = require('./routes/book')
 const mongooseConnection = require('./database-connection')
 
 const app = express()
+
+app.use(cors())
 
 app.use(
   session({
@@ -56,9 +59,9 @@ app.all('*', (req, res, next) => {
   next()
 })
 
-app.use('/', indexRouter)
-app.use('/users', userRouter)
-app.use("/books", bookRouter)
+app.use('/api/', indexRouter)
+app.use('/api/users', userRouter)
+app.use("/api/books", bookRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

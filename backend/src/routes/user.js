@@ -3,11 +3,6 @@ const router = express.Router()
 const passport = require('passport')
 const userController = require('../controllers/user')
 
-router.get('/', userController.findUsers)
-
-// get a one user
-router.get('/:id', userController.findUser)
-
 router.post('/register', userController.register)
 
 router.post(
@@ -29,5 +24,9 @@ router.post(
 router.get('/session', userController.checkLoggedIn)
 
 router.delete('/session', userController.logout)
+
+router.get('/:id', userController.findUser)
+
+router.get('/', userController.findUsers)
 
 module.exports = router
