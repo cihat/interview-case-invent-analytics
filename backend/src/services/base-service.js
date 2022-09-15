@@ -16,6 +16,10 @@ class BaseService {
     return await this.model.create(object)
   }
 
+  async remove(id) {
+    return await this.model.findByIdAndDelete(id)
+  }
+
   async removeBy(property, value) {
     return this.model.deleteOne({ [property]: value })
   }
