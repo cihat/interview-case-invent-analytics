@@ -1,10 +1,6 @@
 const User = require('../models/user')
 const Validator = require('async-validator').default
-const passport = require('passport')
-
-exports.findUsers = async (req, res) => {
-  res.send(await User.find())
-}
+const { userService } = require('../services')
 
 exports.register = async (req, res, next) => {
   const descriptor = {
@@ -72,4 +68,12 @@ exports.logout = async (req, res, next) => {
   await req.logout()
 
   res.sendStatus(200)
+}
+
+exports.findUsers = async (req, res) => {
+  res.send(await userService.load())
+}
+
+exports.findUser = async (req, res) => {
+  res.send(await userService.find(req.params.id))
 }

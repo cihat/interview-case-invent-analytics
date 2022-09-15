@@ -5,6 +5,9 @@ const userController = require('../controllers/user')
 
 router.get('/', userController.findUsers)
 
+// get a one user
+router.get('/:id', userController.findUser)
+
 router.post('/register', userController.register)
 
 router.post(
