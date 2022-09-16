@@ -1,22 +1,22 @@
-import { createApp } from 'vue'
-import App from './app.vue'
-import './register-service-worker'
+import Vue from 'vue'
+import App from './App.vue'
 import router from './router'
 import store from './store'
-import AuthLayout from './layouts/AuthLayout.vue'
-import HomeLayout from './layouts/HomeLayout.vue'
-import 'normalize.css'
 import 'ant-design-vue/dist/antd.css'
-import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
+import antd from 'ant-design-vue'
 
-const app = createApp(App)
+Vue.use(antd)
 
-window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor
+Vue.config.productionTip = false
 
-app.component('auth-layout', AuthLayout)
-app.component('home-layout', HomeLayout)
-app.use(Antd)
-app.use(store)
-app.use(router)
-app.mount('#app')
+async function main() {
+  let storeInstance = await store()
+
+  new Vue({
+    router: router(storeInstance),
+    store: storeInstance,
+    render: h => h(App)
+  }).$mount('#app')
+}
+
+main()

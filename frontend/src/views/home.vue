@@ -1,25 +1,18 @@
 <script>
-import { mapActions } from 'vuex'
-import SettingsPopup from "../components/Header/settings-popup.vue"
+import { mapState } from 'vuex'
 
 export default {
-  name: 'Home',
-  components: {
-    SettingsPopup
-  },
-  created() {
-    this.fetchUsers()
-    console.log('home page created')
-  },
-  methods: {
-    ...mapActions(['fetchUsers', ]),
-  },
+  name: 'home',
+  computed: {
+    ...mapState('account', ['user'])
+  }
 }
 </script>
-
 <template lang="pug">
-div
-  h1 Test
-  h2 {{ message }}
-  settings-popup
+.home
+  h1 Library Automation
 </template>
+
+<style lang="scss" scoped>
+
+</style>

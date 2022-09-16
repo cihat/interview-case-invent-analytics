@@ -56,10 +56,6 @@ exports.login = async (req, res) => {
   res.send(req.user)
 }
 
-exports.checkLoggedIn = (req, res) => {
-  res.send(req.user)
-}
-
 exports.logout = async (req, res, next) => {
   await req.logout()
 

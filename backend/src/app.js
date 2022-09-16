@@ -19,7 +19,13 @@ const mongooseConnection = require('./database-connection')
 
 const app = express()
 
-app.use(cors())
+app.use(
+  cors({
+    origin: process.env.NODE_ENV === 'production' ? 'http://localhost:8080' : true,
+    credentials: true
+  })
+)
+
 
 app.use(
   session({

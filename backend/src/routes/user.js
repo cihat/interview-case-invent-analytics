@@ -7,6 +7,8 @@ const preventLoginForLoggedInUsers = (req, res, next) => {
   next(req.user && new Error('User is already logged in'))
 }
 
+router.get('/', userController.login)
+
 router.post('/register', userController.register)
 
 router.post(
@@ -24,8 +26,6 @@ router.post(
     )
   }
 )
-
-router.get('/session', userController.checkLoggedIn)
 
 router.delete('/session', userController.logout)
 
