@@ -3,16 +3,17 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'app',
   computed: {
-    ...mapGetters('user', ['isLoggedIn']),
+    ...mapGetters('user', ['isLoggedIn', "user"]),
     selectedKeys() {
-      return [this.$route.name]
+      return [this.$route.name] || ["home"]
     },
     layout() {
-      return `${this.$route.meta.layout || 'feed'}-layout`
+      return `${this.$route.meta.layout || 'home'}-layout`
     },
   },
   async created() {
     await this.init()
+    console.log("user", this.user)
     // !this.isLoggedIn ? this.$router.push({ path: '/login' }) : this.$router.push({ path: '/' })
   },
   methods: {

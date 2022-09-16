@@ -1,23 +1,25 @@
 <script>
 import { mapActions } from 'vuex'
-
-import HelloWorld from '@/components/hello-world.vue'
+import SettingsPopup from "../components/Header/settings-popup.vue"
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    SettingsPopup
   },
   created() {
     this.fetchUsers()
+    console.log('home page created')
   },
   methods: {
-    ...mapActions(['fetchUsers']),
+    ...mapActions(['fetchUsers', ]),
   },
 }
 </script>
 
 <template lang="pug">
-.home
-  hello-world(msg="Welcome to your stack.")
+div
+  h1 Test
+  h2 {{ message }}
+  settings-popup
 </template>

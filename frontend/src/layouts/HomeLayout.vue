@@ -1,7 +1,7 @@
 <script>
 import Header from '../components/Header'
 export default {
-  name: 'feed-layout',
+  name: 'home-layout',
   components: {
     Header,
   },
@@ -9,13 +9,13 @@ export default {
 </script>
   
 <template lang="pug">
-.feed-layout
-  Header
+.home-layout
+  //- Header
   router-view
   </template>
   
 <style lang="scss" scoped>
-.feed-layout {
+.home-layout {
   min-height: 100vh;
   background-color: #f5f6f8;
   margin: 0 auto;

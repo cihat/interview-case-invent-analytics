@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import NewLogin from '../views/auth/NewLogin.vue'
 import NewRegister from '../views/auth/NewRegister.vue'
 // import NotFound from '../components/NotFound'
-// import Feed from '../views/Feed.vue'
+import Home from '../views/home.vue'
 // import Users from '../views/users'
 // import Jobs from '../views/jobs'
 // import Messages from '../views/messages'
@@ -14,23 +14,25 @@ import NewRegister from '../views/auth/NewRegister.vue'
 import store from '../store'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'feed',
-  //   meta: { layout: 'feed' },
-  //   component: Feed,
-  //   beforeEnter(to, from, next) {
-  //     if (!store.state.user.user) return next('/login')
-  //     return next()
-  //   },
-  // },
+  {
+    path: '/',
+    name: 'home',
+    meta: { layout: 'home' },
+    component: Home,
+    beforeEnter(to, from, next) {
+      console.log('beforeEnter home', store.getters['user/isLoggedIn'])
+      // if (!store.state.user.user) return next('/login')
+      return next()
+    },
+  },
   {
     path: '/register',
     name: 'register',
     meta: { layout: 'auth' },
     component: NewRegister,
     beforeEnter(to, from, next) {
-      if (store.state.user.user) return next('/')
+      console.log('beforeEnter register', store.getters['user/isLoggedIn'])
+      // if (store.state.user.user) return next('/')
       return next()
     },
   },
@@ -40,7 +42,8 @@ const routes = [
     meta: { layout: 'auth' },
     component: NewLogin,
     beforeEnter(to, from, next) {
-      if (store.state.user.user) return next('/')
+      console.log('beforeEnter login', store.getters['user/isLoggedIn'])
+      // if (store.state.user.user) return next('/')
       return next()
     },
   },
@@ -82,7 +85,7 @@ const routes = [
   // {
   //   path: '/feed',
   //   name: 'feed',
-  //   meta: { layout: 'feed' },
+  //   meta: { layout: 'home' },
   //   component: Feed,
   //   beforeEnter(to, from, next) {
   //     if (!store.state.user.user) return next('/login')

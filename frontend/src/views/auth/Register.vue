@@ -45,7 +45,6 @@ export default {
       e.preventDefault()
       this.backendError = null
       this.loading = true
-      console.log('test', name, this.username, this.email, this.password, this.passwordConfirmation)
       try {
         await this.registerUser({
           name: this.name,

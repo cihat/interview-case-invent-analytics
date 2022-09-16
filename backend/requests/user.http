@@ -23,14 +23,12 @@ content-type: application/json
 
 ###
 
-GET http://localhost:3000/api/users/session HTTP/1.1
+POST http://localhost:3000/api/users/session HTTP/1.1
 content-type: application/json
 
 {
-  "user": {
-    "email": "test@test.com",
-    "password": "test123123!"
-  }
+  "email": "test@test.com",
+  "password": "test123123!"
 }
 
 ###

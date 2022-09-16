@@ -16,6 +16,11 @@ export default {
   },
   methods: {
     ...mapActions('user', ['logout']),
+    async logoutUser() {
+      console.log('lotyout clicked')
+      // await this.logout()
+      this.$router.push('/login')
+    },
   },
 }
 </script>
@@ -36,7 +41,7 @@ export default {
       router-link(to="/help")
         p Help
     li
-      router-link(to="/login" v-on:click="logout") 
+      router-link(to="/login" v-on:click="logoutUser") 
         span Sign Out
         icon( icon='exit' :size="20" color="#5096ec")
 

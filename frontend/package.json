@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "interview-case-invent-analytics",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -20,7 +20,7 @@
     "vue": "^3.0.0-0",
     "vue-icomoon": "^0.2.3",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

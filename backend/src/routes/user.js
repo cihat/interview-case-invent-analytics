@@ -3,11 +3,15 @@ const router = express.Router()
 const passport = require('passport')
 const userController = require('../controllers/user')
 
+const preventLoginForLoggedInUsers = (req, res, next) => {
+  next(req.user && new Error('User is already logged in'))
+}
+
 router.post('/register', userController.register)
 
 router.post(
   '/session',
-  userController.preventLoginForLoggedInUsers,
+  preventLoginForLoggedInUsers,
   passport.authenticate('local', {
     failWithError: true,
   }),

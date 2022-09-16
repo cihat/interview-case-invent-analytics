@@ -17,12 +17,12 @@ axios.defaults.baseURL = 'http://localhost:3000/api/users'
 const user = {
   namespaced: true,
   state: () => ({
-    user: null,
+    user: {},
   }),
 
   mutations: {
     [mutations.SET_USER](state, user) {
-      state.user = user
+      state.user = Object.assign({}, user)
     },
   },
   getters: {
@@ -31,7 +31,6 @@ const user = {
   },
   actions: {
     async [actions.INIT]({ dispatch }) {
-      console.log('test')
       await dispatch(actions.FETCH_SESSION)
     },
     async [actions.REGISTER_USER](store, user) {

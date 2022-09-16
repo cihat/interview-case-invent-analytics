@@ -52,10 +52,6 @@ exports.register = async (req, res, next) => {
   }
 }
 
-exports.preventLoginForLoggedInUsers = (req, res, next) => {
-  next(req.user && new Error('User is already logged in'))
-}
-
 exports.login = async (req, res) => {
   res.send(req.user)
 }
