@@ -53,19 +53,42 @@ exports.register = async (req, res, next) => {
 }
 
 exports.login = async (req, res) => {
-  res.send(req.user)
+  try {
+    res.send(req.user)
+  } catch (error) {
+    return next({
+      message: 'Something went wrong while logging in.',
+      status: 500,
+    })
+  }
 }
 
 exports.logout = async (req, res, next) => {
-  await req.logout()
-
-  res.sendStatus(200)
+  try {
+    await req.logout()
+    res.sendStatus(200)
+  } catch (error) {
+    return next({
+      message: 'Something went wrong while logging out.',
+      status: 500,
+    })
+  }
 }
 
 exports.findUsers = async (req, res) => {
-  res.send(await userService.load())
+  try {
+    res.send(await userService.load())
+  } catch (error) {
+    return next({ message: 'Users not found.', status: 404 })
+  }
 }
 
-exports.findUser = async (req, res) => {
-  res.send(await userService.find(req.params.id))
+exports.findUser = async (req, res, next) => {
+  try {
+    const users = await userService.find({ _id: req.params.id })
+
+    res.send(users)
+  } catch (error) {
+    return next({ message: 'User not found.', status: 404 })
+  }
 }

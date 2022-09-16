@@ -8,7 +8,10 @@ exports.findBooks = async (req, res, next) => {
 
     res.send(books)
   } catch (e) {
-    next(e)
+    return next({
+      message: 'Something went wrong while fetching books.',
+      status: 500,
+    })
   }
 }
 
@@ -18,7 +21,10 @@ exports.createBook = async (req, res, next) => {
 
     res.send(book)
   } catch (e) {
-    next(e)
+    return next({
+      message: 'Something went wrong while creating a book.',
+      status: 500,
+    })
   }
 }
 
@@ -28,7 +34,10 @@ exports.findBook = async (req, res, next) => {
 
     res.send(book)
   } catch (e) {
-    next(e)
+    return next({
+      message: 'Something went wrong while fetching a book.',
+      status: 500,
+    })
   }
 }
 
@@ -38,10 +47,12 @@ exports.updateBook = async (req, res, next) => {
 
     res.send(book)
   } catch (e) {
-    next(e)
+    return next({
+      message: 'Something went wrong while updating a book.',
+      status: 500,
+    })
   }
 }
-
 
 exports.deleteBook = async (req, res, next) => {
   try {
@@ -49,6 +60,9 @@ exports.deleteBook = async (req, res, next) => {
 
     res.send(book)
   } catch (e) {
-    next(e)
+    return next({
+      message: 'Something went wrong while deleting a book.',
+      status: 500,
+    })
   }
 }
