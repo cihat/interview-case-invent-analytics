@@ -24,13 +24,13 @@ export default {
       a-row(type="flex" justify="space-between")
         a-col
           div.logo
-            router-link(to="/dashboard") Library Automation
+            router-link(to="/") Interview Case Invent Analytics
             span BETA
         a-col
           a-menu(theme='light', :selectedKeys="selectedKeys" mode='horizontal', :style="{ lineHeight: '64px'}")
-            a-menu-item(key="dashboard" v-if="user")
-              router-link(to="/dashboard")
-                | Dashboard
+            //- a-menu-item(key="dashboard" v-if="user")
+            //-   router-link(to="/dashboard")
+            //-     | Dashboard
             a-menu-item(key="users" v-if="user")
               router-link(to="/users")
                 | Users
@@ -43,6 +43,9 @@ export default {
             a-menu-item(key='register' v-if="!user")
               router-link(to="/register")
                 | Sign up
+            a-menu-item(key='register' v-if="user")
+              router-link(to="/profile")
+                | {{ user.username }}
             a-menu-item(key='logout' v-if="user" @click="doLogout")
               | Log out
     //- a-page-header(style='border: 1px solid rgb(235, 237, 240)' title='Title' sub-title='This is a subtitle' @back='() => null')

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const mutations = {
-  SET_COMPUTER_ID: 'setComputerId',
-  SET_USER: 'setUser'
+  SET_USER: 'setUser',
+  SET_USERS: 'setUsers'
 }
 
 const actions = {
@@ -11,17 +11,22 @@ const actions = {
   LOGIN: 'login',
   LOGOUT: 'logout',
   FETCH_USER: 'fetchUser',
-  INIT: 'init'
+  INIT: 'init',
+  FETCH_USERS: 'fetchUsers'
 }
 
 const account = {
   namespaced: true,
   state: () => ({
-    user: null
+    user: null,
+    users: null
   }),
   mutations: {
     [mutations.SET_USER](state, user) {
       state.user = user
+    },
+    [mutations.SET_USERS](state, users) {
+      state.users = users
     }
   },
   actions: {
@@ -47,14 +52,16 @@ const account = {
 
       commit(mutations.SET_USER, user.data)
     },
-    async [actions.UPDATE_DIRECTOR](store, director) {
-      await axios.patch('/users', { director })
-    },
     async [actions.UPDATE_PROFILE](store, profile) {
       await axios.patch('/users/me', profile)
     },
     async [actions.RESEND_VERIFICATION_EMAIL](store, email) {
       await axios.post('/users/outgoing-verification-emails', { email })
+    },
+    async [actions.FETCH_USERS]({ commit }) {
+      const users = await axios.get('/users/get-all-users')
+
+      commit(mutations.SET_USERS, users.data)
     }
   }
 }

@@ -59,7 +59,7 @@ export default {
 
         try {
           await this.login(values)
-          this.$router.push('/dashboard')
+          this.$router.push('/')
         } catch (e) {
           this.backendError = e.response.data
         } finally {

@@ -3,14 +3,14 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'home',
-  computed: {
-    ...mapState('account', ['user'])
-  }
+  // computed: {
+  //   ...mapState('account', ['user'])
+  // }
 }
 </script>
 <template lang="pug">
-.home
-  h1 Library Automation
+.container
+  h1 Interview Case Invent Analytics
 </template>
 
 <style lang="scss" scoped>
