@@ -6,6 +6,7 @@ import Login from './views/Login.vue'
 import Dashboard from './views/Dashboard.vue'
 import Books from './views/Books.vue'
 import Users from './views/Users.vue'
+import NotFound from './views/NotFound404.vue'
 
 Vue.use(Router)
 
@@ -15,20 +16,34 @@ export default function init(store) {
     base: process.env.BASE_URL,
     routes: [
       {
+        path: '/',
+        name: 'home',
+        component: Home
+      },
+      {
+        path: '/register',
+        name: 'register',
+        component: Register,
+        beforeEnter(to, from, next) {
+          if (store.state?.account?.user) return next('/')
+          return next()
+        }
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: Login,
+        beforeEnter(to, from, next) {
+          if (store.state?.account?.user) return next('/')
+          return next()
+        }
+      },
+      {
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard,
         beforeEnter(to, from, next) {
           if (!store.state.account.user) return next('/login')
-          return next()
-        }
-      },
-      {
-        path: '/',
-        name: 'home',
-        component: Home,
-        beforeEnter: (to, from, next) => {
-          if (!store.state.acccount.user) return next('/login')
           return next()
         }
       },
@@ -51,22 +66,8 @@ export default function init(store) {
         }
       },
       {
-        path: '/register',
-        name: 'register',
-        component: Register,
-        beforeEnter(to, from, next) {
-          if (store.state.account.user) return next('/')
-          return next()
-        }
-      },
-      {
-        path: '/login',
-        name: 'login',
-        component: Login,
-        beforeEnter(to, from, next) {
-          if (store.state.account.user) return next('/')
-          return next()
-        }
+        path: '*',
+        component: NotFound
       }
     ]
   })
