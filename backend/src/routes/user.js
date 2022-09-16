@@ -29,8 +29,8 @@ router.post(
 
 router.delete('/session', userController.logout)
 
-router.get('/:id', userController.findUser)
+router.get('/get-all-users', userController.findUsers)
 
-router.get('/', userController.findUsers)
+router.get('/:id', userController.findUser)
 
 module.exports = router

@@ -9,7 +9,7 @@ class BaseService {
   }
 
   async load() {
-    return this.model.find()
+    return this.model.find({})
   }
 
   async insert(object) {

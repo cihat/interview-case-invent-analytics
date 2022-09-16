@@ -1,24 +1,22 @@
-
-
-GET http://localhost:3000/api/users HTTP/1.1
-content-type: application/json
-
 ###
 
+# User register
 POST  http://localhost:3000/api/users/register HTTP/1.1
 content-type: application/json
 
 {
   "user": {
-    "username": "testtest3",
-    "name": "Test Test3",
-    "email": "test3@test.com",
+    "username": "testtest7",
+    "name": "Test Test7",
+    "email": "test7@test.com",
     "password": "test123123!",
     "passwordConfirmation": "test123123!"
   }
 }
 
 ###
+
+# User login
 
 POST http://localhost:3000/api/users/session HTTP/1.1
 content-type: application/json
@@ -30,12 +28,14 @@ content-type: application/json
 
 ###
 
-DELETE  http://localhost:3000/api/users/session HTTP/1.1
+# get one user
+DELETE  http://localhost:3000/api/users/#id HTTP/1.1
 content-type: application/json
 
 ###
 
-GET http://localhost:3000/api/users HTTP/1.1
+# get users
+GET http://localhost:3000/api/users/get-all-users HTTP/1.1
 content-type: application/json
 
 ###
