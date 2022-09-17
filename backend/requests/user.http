@@ -22,7 +22,7 @@ POST http://localhost:3000/api/users/session HTTP/1.1
 content-type: application/json
 
 {
-  "email": "test@test.com",
+  "email": "testtest234@test.com",
   "password": "test123123!"
 }
 

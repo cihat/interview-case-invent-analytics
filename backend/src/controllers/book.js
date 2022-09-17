@@ -1,6 +1,6 @@
 const Book = require('../models/book')
 const User = require('../models/user')
-const { bookService } = require('../services')
+const { bookService, userService } = require('../services')
 
 exports.findBooks = async (req, res, next) => {
   try {
@@ -64,5 +64,34 @@ exports.deleteBook = async (req, res, next) => {
       message: 'Something went wrong while deleting a book.',
       status: 500,
     })
+  }
+}
+
+exports.borrowBook = async (req, res, next) => {
+  try {
+    const user = await userService.find(req.user._id)
+    const book = await bookService.find(req.params.id)
+
+    if (user.receivedBooks.includes(book._id)) {
+      return next({ message: 'You have already borrowed this book.', status: 400 })
+    }
+
+    if (book.receivedBy) {
+      return next({ message: 'This book is already borrowed.', status: 400 })
+    }
+
+    if (user.receivedBooks.length >= 3) {
+      return next({ message: 'You have already borrowed 3 books.', status: 400 })
+    }
+
+    user.receivedBooks.push(book._id)
+    book.receivedBy = user._id
+
+    await user.save()
+    await book.save()
+
+    res.sendStatus(200)
+  } catch (error) {
+    return next({ message: 'Something went wrong.', status: 500 })
   }
 }

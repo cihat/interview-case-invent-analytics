@@ -27,14 +27,16 @@
     a-rate(slot='isbn' v-model="value")
     a-button(slot='_id' slot-scope='id')
       a(:href="`/books/${id}`") {{ id }}
-    a-button(type="primary" slot='borrow-action' slot-scope='text') Borrow
-    a-button(type="danger" slot='delete-action' slot-scope='text' @click='() => edit()' ) Delete
+    a-button(type="primary" slot='borrow-action' slot-scope='id' @click='handleBorrowBook(id)' :disabled="checkBorrow")
+      | {{ checkBorrow ? 'Borrowed' : 'Borrow' }}
+    a-button(type="danger" slot='delete-action' slot-scope='_id') Delete
     //- book-item
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import BookItem from '../components/BookItem.vue';
-import SubHeader from "../components/SubHeader";
+import SubHeader from "../components/SubHeader";import book from '../store/book';
+
 
 const columns = [
   {
@@ -115,14 +117,16 @@ const columns = [
   },
   {
     title: "Borrow",
-    key: "x",
+    key: "borrow-action",
     width: "10%",
+    dataIndex: "_id",
     scopedSlots: { customRender: "borrow-action" },
   },
   {
     title: "Delete",
-    key: "x",
+    key: "delete-action",
     width: "10%",
+    dataIndex: "_id",
     scopedSlots: { customRender: "delete-action" },
   },
 ];
@@ -140,10 +144,15 @@ export default {
       searchedColumn: '',
       columns,
       value: 2.5,
+      checkBorrow: false
     }
   },
   computed: {
-    ...mapState('book', ['books'])
+    ...mapState('book', ['books', 'book']),
+    ...mapActions('book', ['getBooks', 'deleteBook', "borrowBook"]),
+    // checkBorrow: function () {
+    //   return this.book.receivedBy
+    // }
   },
   methods: {
     handleSearch(selectedKeys, confirm, dataIndex) {
@@ -156,6 +165,9 @@ export default {
       clearFilters();
       this.searchText = '';
     },
+    handleBorrowBook(id) {
+      this.borrowBook(id)
+    }
   }
 }
 </script>

@@ -3,13 +3,13 @@
   h3 Borrowed {{borrowedBooks.length}} books
   a-list(item-layout='horizontal' :data-source='borrowedBooks')
     a-list-item(slot='renderItem' slot-scope='item, index')
-      a-list-item-meta(description='Ant Design, a design language for background applications, is refined by Ant UED Team')
+      a-list-item-meta(:description='item.description')
         a(slot='title' href='https://www.antdv.com/') {{ item.title }}
         a-avatar(slot='avatar' src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png')
   h3 Currently recevied {{receivedBooks.length}} books
   a-list(item-layout='horizontal' :data-source='receivedBooks')
     a-list-item(slot='renderItem' slot-scope='item, index')
-      a-list-item-meta(description='Ant Design, a design language for background applications, is refined by Ant UED Team')
+      a-list-item-meta(:description='item.description')
         a(slot='title' href='https://www.antdv.com/') {{ item.title }}
         a-avatar(slot='avatar' src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png')
 </template>

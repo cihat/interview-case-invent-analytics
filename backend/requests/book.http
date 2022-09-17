@@ -1,24 +1,28 @@
+# get books
 GET http://localhost:3000/api/books HTTP/1.1
 content-type: application/json
 
 ###
 
-GET http://localhost:3000/api/books/632346cbd1d3a4560cf4b1b0 HTTP/1.1
+# get a book
+GET http://localhost:3000/api/books/6324e9d4919e96593117ce9d HTTP/1.1
 content-type: application/json
 
 ###
 
+# create a book
 POST http://localhost:3000/api/books HTTP/1.1
 content-type: application/json
   
   {
-    "title": "The Lord of the Rings",
-    "author": "J.R.R. Tolkien",
-    "description": "A classic coming of age story"
+    "title": "Test Test ",
+    "author": "Test Book auh",
+    "description": "TEst Test classic coming of age story"
   }
 
 ###
 
+# update a book
 PUT http://localhost:3000/api/books/632346cbd1d3a4560cf4b1b0 HTTP/1.1
 content-type: application/json
   
@@ -30,7 +34,12 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:3000/api/books/632346cbd1d3a4560cf4b1b0 HTTP/1.1
+# delete a book
+DELETE http://localhost:3000/api/books/6324e9d4919e96593117ce9d HTTP/1.1
 content-type: application/json
 
 ###
+
+# borrow book
+
+POST http://localhost:3000/api/books/6324e9fa919e96593117ce9f/borrow HTTP/1.1
