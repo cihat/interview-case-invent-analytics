@@ -3,7 +3,8 @@
   SubHeader(title='Books' subTitle='List of books')
   a-table(:columns="columns" :data-source="books" :row-key="record => record._id" :pagination="{ pageSize: 10 }" bordered size="large")
     template(#title='books')
-      a-button(type='primary') Add Book
+      //- a-button(type='primary' @click='showModal') Add Todo
+      Modal
     div(slot='filterDropdown' slot-scope='{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }' style='padding: 8px')
       a-input(v-ant-ref='c => (searchInput = c)' :placeholder='`Search ${column.dataIndex}`' :value='selectedKeys[0]' style='width: 188px; margin-bottom: 8px; display: block;' @change='e => setSelectedKeys(e.target.value ? [e.target.value] : [])' @pressenter='() => handleSearch(selectedKeys, confirm, column.dataIndex)')
       a-button(type='primary' icon='search' size='small' style='width: 90px; margin-right: 8px' @click='() => handleSearch(selectedKeys, confirm, column.dataIndex)')
@@ -21,21 +22,20 @@
       template(v-else='')
         | {{ text }}
 
-
-
-
     a-rate(slot='isbn' v-model="value")
     a-button(slot='_id' slot-scope='id')
       a(:href="`/books/${id}`") {{ id }}
-    a-button(type="primary" slot='borrow-action' slot-scope='id' @click='handleBorrowBook(id)' :disabled="checkBorrow")
-      | {{ checkBorrow ? 'Borrowed' : 'Borrow' }}
+    a-button(type="primary" slot='receive-action' slot-scope='id, receivedBy' @click='handleBorrowBook(id)' :disabled="receivedBy")
+      | {{ receivedBy.length > 0 ? 'Received' : 'Receive' }}
     a-button(type="danger" slot='delete-action' slot-scope='_id') Delete
     //- book-item
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import BookItem from '../components/BookItem.vue';
-import SubHeader from "../components/SubHeader";import book from '../store/book';
+import SubHeader from "../components/SubHeader"; import book from '../store/book';
+import { message, notification } from 'ant-design-vue'
+import Modal from "../components/Modal.vue"
 
 
 const columns = [
@@ -116,11 +116,11 @@ const columns = [
     scopedSlots: { customRender: "_id" },
   },
   {
-    title: "Borrow",
-    key: "borrow-action",
+    title: "Received By",
+    key: "receive-action",
     width: "10%",
-    dataIndex: "_id",
-    scopedSlots: { customRender: "borrow-action" },
+    dataIndex: "_id, receivedBy",
+    scopedSlots: { customRender: "receive-action" },
   },
   {
     title: "Delete",
@@ -135,7 +135,8 @@ export default {
   name: 'books',
   components: {
     BookItem,
-    SubHeader
+    SubHeader,
+    Modal
   },
   data() {
     return {
@@ -149,10 +150,7 @@ export default {
   },
   computed: {
     ...mapState('book', ['books', 'book']),
-    ...mapActions('book', ['getBooks', 'deleteBook', "borrowBook"]),
-    // checkBorrow: function () {
-    //   return this.book.receivedBy
-    // }
+    ...mapActions('book', ['fetchBooks', 'deleteBook', "borrowBook"]),
   },
   methods: {
     handleSearch(selectedKeys, confirm, dataIndex) {
@@ -165,8 +163,19 @@ export default {
       clearFilters();
       this.searchText = '';
     },
-    handleBorrowBook(id) {
-      this.borrowBook(id)
+    async handleBorrowBook(id) {
+      try {
+        await this.borrowBook(id)
+        message.success(`Borrowed book 🎉 with id ${id}`)
+      } catch (e) {
+        console.log('esadf;lk', e)
+        notification.error({
+          message: 'Error',
+          description: e.response?.data?.message ?? e.message ?? 'An unknown error occured'
+        })
+      } finally {
+        this.fetchBooks()
+      }
     }
   }
 }

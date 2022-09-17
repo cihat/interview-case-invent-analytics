@@ -43,6 +43,11 @@ exports.findBook = async (req, res, next) => {
 
 exports.updateBook = async (req, res, next) => {
   try {
+    const existBook = await bookService.find(req.params.id)
+    if (!existBook) {
+      return next({ message: 'Book not found.', status: 404 })
+    }
+
     const book = await bookService.updateBook(req.params.id, req.body)
 
     res.send(book)
@@ -85,7 +90,7 @@ exports.borrowBook = async (req, res, next) => {
     }
 
     user.receivedBooks.push(book._id)
-    book.receivedBy = user._id
+    book.receivedBy = user
 
     await user.save()
     await book.save()

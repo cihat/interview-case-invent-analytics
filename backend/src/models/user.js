@@ -19,15 +19,19 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'Book',
-        autopopulate: true,
-      }
+        autopopulate: {
+          maxDepth: 2,
+        },
+      },
     ],
     receivedBooks: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Book',
-        autopopulate: true,
-      }
+        autopopulate: {
+          maxDepth: 2,
+        },
+      },
     ],
   },
   { timestamps: true }

@@ -21,7 +21,7 @@ export default {
     };
   },
   props: {
-    receivedBooks: {
+    receivedBooks: {  
       type: Array,
       required: true,
     },

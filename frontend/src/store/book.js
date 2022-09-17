@@ -15,7 +15,7 @@ const actions = {
   FETCH_BOOKS: 'fetchBooks',
   FETCH_BOOK: 'fetchBook',
   INIT: 'init',
-  BORROW_BOOK: 'borrowBook',
+  BORROW_BOOK: 'borrowBook'
 }
 
 const book = {
@@ -26,14 +26,14 @@ const book = {
   }),
   getters: {
     books: state => state.books,
-    book: state => state.book,
+    book: state => state.book
   },
   mutations: {
     [mutations.CREATE_BOOK](state, book) {
       state.books.push(book)
     },
     [mutations.UPDATE_BOOK](state, book) {
-      state.books = state.books.map(b => b.id === book.id ? book : b)
+      state.books = state.books.map(b => (b.id === book.id ? book : b))
     },
     [mutations.DELETE_BOOK](state, book) {
       state.books = state.books.filter(b => b.id !== book.id)
@@ -49,10 +49,12 @@ const book = {
     async [actions.INIT]({ dispatch }) {
       await dispatch(actions.FETCH_BOOKS)
     },
-    async [actions.CREATE_BOOK]({ commit }, book) {
-      const res = await axios.post('/books', { book })
-
-      commit(mutations.CREATE_BOOK, res.data)
+    async [actions.CREATE_BOOK](book) {
+      try {
+        await axios.post('/books', { book })
+      } catch (e) {
+        throw e
+      }
     },
     async [actions.UPDATE_BOOK]({ commit }, book) {
       const res = await axios.patch(`/books/${book.id}`, { book })
@@ -75,9 +77,12 @@ const book = {
       commit(mutations.SET_BOOK, res.data)
     },
     async [actions.BORROW_BOOK]({ commit }, book) {
-      const res = await axios.post(`/books/${book.id}/borrow`)
-
+      try {
+        const res = await axios.post(`/books/${book.id}/borrow`)
         commit(mutations.SET_BOOK, res.data)
+      } catch (e) {
+        throw e
+      }
     }
   }
 }

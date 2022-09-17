@@ -15,9 +15,9 @@ POST http://localhost:3000/api/books HTTP/1.1
 content-type: application/json
   
   {
-    "title": "Test Test ",
-    "author": "Test Book auh",
-    "description": "TEst Test classic coming of age story"
+    "title": "Test Test3",
+    "author": "Test Book auh3",
+    "description": "TEst Test classic coming of age story3"
   }
 
 ###
@@ -42,4 +42,4 @@ content-type: application/json
 
 # borrow book
 
-POST http://localhost:3000/api/books/6324e9fa919e96593117ce9f/borrow HTTP/1.1
+POST http://localhost:3000/api/books/6326289b73bc0a57c44b1cca/borrow HTTP/1.1
