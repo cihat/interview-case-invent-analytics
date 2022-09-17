@@ -66,6 +66,15 @@ export default function init(store) {
         }
       },
       {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('./views/Profile.vue'),
+        beforeEnter(to, from, next) {
+          if (!store.state.account.user) return next('/login')
+          return next()
+        }
+      },
+      {
         path: '*',
         component: NotFound
       }

@@ -1,13 +1,13 @@
 <template lang="pug">
-  .container
-    h1 Users
-    a-table(:columns="columns" :data-source="users" :row-key="record => record._id" :pagination="{ pageSize: 10 }")
-      a-button(type="danger" slot='delete-action' slot-scope='text') Delete
-      a-button(type="primary" slot='edit-action' slot-scope='text') Edit
-      book-item
-  </template>
+.container
+  SubHeader(title='Users' sub-title='List of Users')
+  a-table(:columns="columns" :data-source="users" :row-key="record => record._id" :pagination="{ pageSize: 10 }")
+    a-button(type="danger" slot='delete-action' slot-scope='text') Delete
+    a-button(type="primary" slot='edit-action' slot-scope='text') Edit
+</template>
 <script>
 import { mapState } from 'vuex'
+import SubHeader from "../components/SubHeader";
 
 const columns = [
   {
@@ -39,6 +39,9 @@ const columns = [
 
 export default {
   name: "users",
+  components: {
+    SubHeader
+  },
   computed: {
     ...mapState("account", ["users"]),
   },
