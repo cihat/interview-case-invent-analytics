@@ -7,6 +7,7 @@ import Dashboard from './views/Dashboard.vue'
 import Books from './views/Books.vue'
 import Users from './views/Users.vue'
 import NotFound from './views/NotFound404.vue'
+import BookDetail from './views/BookDetail.vue'
 
 Vue.use(Router)
 
@@ -60,6 +61,15 @@ export default function init(store) {
         path: '/books',
         name: 'books',
         component: Books,
+        beforeEnter(to, from, next) {
+          if (!store.state.account.user) return next('/login')
+          return next()
+        }
+      },
+      {
+        path: "/books/:id",
+        name: "book",
+        component: BookDetail,
         beforeEnter(to, from, next) {
           if (!store.state.account.user) return next('/login')
           return next()

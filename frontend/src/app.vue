@@ -79,7 +79,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   font-weight: 500;
-  background-color: #f6f6f6;
+  background-color: #fff;
 
   .logo {
     z-index: 1;
@@ -107,11 +107,11 @@ body {
 
   .ant-layout-header {
     background: white;
-    padding: 0 calc(calc(100% - 760px) / 2);
+    padding: 0 calc(calc(100% - 1088px) / 2);
   }
 
   .ant-layout-content {
-    max-width: 760px;
+    max-width: 1200px;
     align-self: center;
     padding: 4em;
     width: 100%;

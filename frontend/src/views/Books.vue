@@ -24,11 +24,11 @@
 
 
 
-
+    a-rate(slot='isbn' v-model="value")
     a-button(slot='_id' slot-scope='id')
       a(:href="`/books/${id}`") {{ id }}
+    a-button(type="primary" slot='borrow-action' slot-scope='text') Borrow
     a-button(type="danger" slot='delete-action' slot-scope='text' @click='() => edit()' ) Delete
-    a-button(type="primary" slot='edit-action' slot-scope='text') Edit
     //- book-item
 </template>
 <script>
@@ -64,7 +64,7 @@ const columns = [
     title: "Author",
     dataIndex: "author",
     key: "author",
-    width: "20%",
+    width: "15%",
     scopedSlots: {
       filterDropdown: 'filterDropdown',
       filterIcon: 'filterIcon',
@@ -91,7 +91,7 @@ const columns = [
     scopedSlots: {
       filterDropdown: 'filterDropdown',
       filterIcon: 'filterIcon',
-      customRender: 'customRender',
+      customRender: 'isbn',
     },
     onFilter: (value, record) =>
       record.name
@@ -114,6 +114,12 @@ const columns = [
     scopedSlots: { customRender: "_id" },
   },
   {
+    title: "Borrow",
+    key: "x",
+    width: "10%",
+    scopedSlots: { customRender: "borrow-action" },
+  },
+  {
     title: "Delete",
     key: "x",
     width: "10%",
@@ -133,6 +139,7 @@ export default {
       searchInput: null,
       searchedColumn: '',
       columns,
+      value: 2.5,
     }
   },
   computed: {

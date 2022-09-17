@@ -39,6 +39,9 @@ const book = {
     },
     [mutations.SET_BOOKS](state, books) {
       state.books = books
+    },
+    [mutations.SET_BOOK](state, book) {
+      state.book = book
     }
   },
   actions: {
