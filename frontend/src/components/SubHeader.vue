@@ -10,7 +10,7 @@ export default {
     },
     subTitle: {
       type: String,
-      required: true
+      required: false
     }
   }
 }

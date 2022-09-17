@@ -11,6 +11,7 @@ export default {
 <template lang="pug">
 .container
   h1 Interview Case Invent Analytics
+  img(src="../assets/img/lib-bg-image.jpeg")
 </template>
 
 <style lang="scss" scoped>
