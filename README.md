@@ -1,77 +1,201 @@
-# stack
+# Boilerplate
+  ## Express + MongoDB + mongoose + passport.js + Docker + Jest + Vue + pinia + antd starter Template  
+&nbsp;
 
-A starter repository for MongoDB, Node.js, and Vue.js, with a local environment based on Docker. 
+---
 
-This boilerplate was started from the repo at the [this](https://github.com/cihat/stack/) url
+&nbsp; 
+ 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Installation
+&nbsp;  
 
-## Running the stack
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/cihat/boilerplate)
+&nbsp;  
 
-```sh
-$ docker-compose up
-```
+Now you can directly work in your browser!  
+&nbsp;
 
-## Accessing the stack from a browser
+## Getting started
+&nbsp;
+### NODE - EXPRESS - MONGODB - MONGOOSE - PASSPORT.JS - DOCKER - JEST - VUE - PINIA - ANTD
+&nbsp;
 
-The starter stack works with a load balancer that binds to ports 80 and 443. It currently serves the domain http://stack.localhost. In order to reach the frontend through the stack, you need to edit your `hosts` file (usually under `/etc/hosts` in UNIX environments and `C:\Windows\System32\Drivers\etc\hosts` in Windows) and add the following line:
+Install dependencies in backend folder
 
-```
-127.0.0.1 stack.localhost
-```
+  ```sh
+  cd backend
+  ```  
 
-Now if you visit http://stack.localhost, you will be greeted with the frontend starter project.
+  ```sh
+  npm install
+  ```  
+  &nbsp;
 
-## Changing the local domain
+Install dependencies in frontend folder
 
-If you wish to use a domain name other than http://stack.localhost, simply set the environment variable `DOMAIN` to any domain you want.
+  ```sh
+  cd frontend
+  ```  
 
-```sh
-$ DOMAIN=another-domain.localhost docker-compose up
-```
+  ```sh
+  npm install
+  ```  
+  &nbsp;
 
-You then also need to update your `hosts` file accordingly.
+Start development server:
 
-## Debugging
+- Backend
 
-You can debug the backend while it's running in VSCode. Instead of running `docker-compose up`, run the following command:
+  - with *Node.js*:
+  
+    ```sh
+    cd backend
+    ``` 
 
-```sh
-$ docker-compose -f docker-compose.yml -f docker-compose.debug.yml up
-```
+    ```sh
+    npm start
+    ```
 
-This starts the backend service in the debug mode, so you can use the built-in debug task `Attach to backend` to debug your backend service.
+  - with *nodemon*:
+  
+    ```sh
+    cd backend
+    ``` 
 
-# Running tests
+    ```sh
+    npm run dev
+    ```  
+  
+  - with *Docker*:
 
-## Running backend tests
+    ```sh
+    docker-compose up --build
+    ```  
 
-```sh
-$ cd backend
-$ npm i
-$ npm test
-```
+- Frontend
+  
+  - Compiles and hot-reloads for development
+  
+    ```sh
+    cd frontend
+    ```  
 
-## Running frontend tests
+    ```
+    npm run serve
+    ```
 
-```sh
-$ cd frontend
-$ npm i
-$ npm test:unit
-$ npm test:e2e
-```
+  - Compiles and minifies for production 
 
-# Linting
+    
+    ```sh
+    cd frontend
+    ```   
 
-Run `npm install` on the root folder and it will set up a pre-commit hook to lint the staged files. You will also have two lint commands, `npm run lint` and `npm run lint-staged` that you can run on the root folder.
+    ```
+    npm run build
+    ```
 
-These commands run the individual `lint` and `lint-staged` scripts in both the `frontend` and the `backend` folders, and they will respect individual configurations of these folders.
+  - Lints and fixes files
 
-# License
 
-MIT License
+    ```sh
+    cd frontend
+    ```    
 
-Copyright (c) 2020 Cihat Salik
+    ```
+    npm run lint
+    ```  
+
+Run the backend tests with Jest:
+
+  - without *coverage*:
+  
+    ```sh
+    cd backend
+    ```  
+
+    ```sh
+    npm test
+    ```
+
+  - with *coverage*:
+
+    ```sh
+    cd backend
+    ```  
+
+    ```sh
+    npm test-coverage
+    ```  
+    
+  <p>&nbsp;</p>  
+
+### Working with **env variables** and **.env** files
+&nbsp;  
+> Note: 
+  > - We have automated for you the following step to make the copy from the **.env.example**:  
+    > ```sh
+    > cp .env.example .env
+    > ```
+  > - Please before starting the server update the **.env** file values accordingly if necessary  
+  &nbsp;  
+  <p>&nbsp;</p>
+
+To add new *env variables*:   
+  - Add them directly in the **.env** file inside of each directory
+  - Add a copy of this *env variables* with an example value (not the real one) in the **.env.example** file
+&nbsp;  
+
+To modify a *env variables*:   
+  - Modify them directly in the **.env** file
+ <p>&nbsp;</p>  
+
+### PLANTUML
+  &nbsp;
+  > **Note:**  
+    > - There is a **class.puml** example file located in the **_architecture_** folder.  
+  &nbsp;
+  <p>&nbsp;</p>
+
+  To start working **_*.puml_** files:  
+  
+  - You can continue by editing the **class.puml** file   
+  - Add additional **_*.puml_** files on that folder too.  
+  &nbsp;  
+
+  If you what to visualize a preview of the **class.puml** file or another **_*.puml_** file on the project, please select the file and on your keyboard press the following keys:
+  <p>&nbsp;</p>  
+
+  - _MacOS_: **Option + D**  
+  
+  - _Linux/Windows_: **Alt + D**  
+  <p>&nbsp;</p>
+  The above commands will automatically open a window that will show you live any updates that you make on the file.
+  <p>&nbsp;</p>  
+
+  ** Note: 
+  - If you what to visualize a preview of the **_*.puml_** file locally without Gitpod, to avoid a render error, please go to the **_settings.json_** file under the **_.vscode_** folder and **comment out** the following:  
+   
+  ```
+  "plantuml.server": "http://localhost:8080",
+"plantuml.render": "PlantUMLServer",
+  ```   
+
+  &nbsp;
+  
+---  
+
+ &nbsp;  
+_Now that we are ready, let's have some coding fun!_
+
+---
+
+&nbsp;
+## MIT License
+
+Copyright (c) 2022 Cihat Salik
+
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
