@@ -4,7 +4,7 @@
   a-table(:columns="columns" :data-source="users" :row-key="record => record._id" :pagination="{ pageSize: 10 }")
     //- a-button(type="danger" slot='delete-action' slot-scope='text') Delete
     //- a-button(type="primary" slot='edit-action' slot-scope='text') Edit
-    a-button(slot='borrowedBooks' slot-scope='borrowedBooks') {{ borrowedBooks.length }}
+    a-button(slot='receivedHistoryBooks' slot-scope='receivedHistoryBooks') {{ receivedHistoryBooks.length }}
     a-button(slot='receivedBooks' slot-scope='receivedBooks') {{ receivedBooks.length }}
 </template>
 <script>
@@ -28,10 +28,10 @@ const columns = [
     key: 'name'
   },
   {
-    title: "Borrowed Books",
-    dataIndex: "borrowedBooks",
-    scopedSlots: { customRender: "borrowedBooks" },
-    key: "borrowedBooks",
+    title: "Received History Books",
+    dataIndex: "receivedHistoryBooks",
+    scopedSlots: { customRender: "receivedHistoryBooks" },
+    key: "receivedHistoryBooks",
   },
   {
     title: "Received Books",

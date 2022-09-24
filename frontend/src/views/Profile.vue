@@ -22,7 +22,7 @@
           a-descriptions-item(label='Address')
             | No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
     a-col(:span='14' class="gutter-row")
-      BookList(:borrowedBooks='user.borrowedBooks' :receivedBooks='user.receivedBooks')
+      BookList(:receivedHistoryBooks='user.receivedHistoryBooks' :receivedBooks='user.receivedBooks')
 
 
 </template>

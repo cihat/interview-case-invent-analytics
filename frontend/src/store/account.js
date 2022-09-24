@@ -35,31 +35,31 @@ const account = {
       await dispatch(actions.FETCH_USER)
     },
     async [actions.REGISTER_USER](store, user) {
-      return axios.post('/users/register', { user })
+      return axios.post('/account/register', { user })
     },
     async [actions.LOGIN]({ commit }, credentials) {
-      const user = await axios.post('/users/session', credentials)
+      const user = await axios.post('/account/session', credentials)
 
       commit(mutations.SET_USER, user.data)
     },
     async [actions.LOGOUT]({ commit }) {
-      await axios.delete('/users/session')
+      await axios.delete('/account/session')
 
       commit(mutations.SET_USER, null)
     },
     async [actions.FETCH_USER]({ commit }) {
-      const user = await axios.get('/users')
+      const user = await axios.get('/account')
 
       commit(mutations.SET_USER, user.data)
     },
     async [actions.UPDATE_PROFILE](store, profile) {
-      await axios.patch('/users/me', profile)
+      await axios.patch('/account/me', profile)
     },
     async [actions.RESEND_VERIFICATION_EMAIL](store, email) {
-      await axios.post('/users/outgoing-verification-emails', { email })
+      await axios.post('/account/outgoing-verification-emails', { email })
     },
     async [actions.FETCH_USERS]({ commit }) {
-      const users = await axios.get('/users/get-all-users')
+      const users = await axios.get('/account/get-all-users')
 
       commit(mutations.SET_USERS, users.data)
     }

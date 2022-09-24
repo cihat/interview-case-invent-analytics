@@ -13,6 +13,6 @@ router.put('/:id', bookController.updateBook)
 
 router.delete('/:id', bookController.deleteBook)
 
-router.post('/:id/borrow', bookController.borrowBook)
+router.post('/:id/receive', bookController.receiveBook)
 
 module.exports = router

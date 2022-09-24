@@ -24,7 +24,7 @@ const bookSchema = new Schema({
     maxlength: 64,
     unique: false,
   },
-  borrowedBy: [
+  receivedHistoryBys: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',

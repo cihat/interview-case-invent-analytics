@@ -1,16 +1,16 @@
 <template lang="pug">
 .container(v-infinite-scroll="handleInfiniteOnLoad" class="demo-infinite-container" :infinite-scroll-disabled="busy" :infinite-scroll-distance="10")
-  h3 Borrowed {{borrowedBooks.length}} books
-  a-list(item-layout='horizontal' :data-source='borrowedBooks')
+  h3 Received History {{receivedHistoryBooks.length}} books
+  a-list(item-layout='horizontal' :data-source='receivedHistoryBooks')
     a-list-item(slot='renderItem' slot-scope='item, index')
       a-list-item-meta(:description='item.description')
-        a(slot='title' href='https://www.antdv.com/') {{ item.title }}
+        a(slot='title' :href="`/books/${item._id}`") {{ item.title }}
         a-avatar(slot='avatar' src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png')
   h3 Currently recevied {{receivedBooks.length}} books
   a-list(item-layout='horizontal' :data-source='receivedBooks')
     a-list-item(slot='renderItem' slot-scope='item, index')
       a-list-item-meta(:description='item.description')
-        a(slot='title' href='https://www.antdv.com/') {{ item.title }}
+        a(slot='title' :href="`/books/${item._id}`") {{ item.title }}
         a-avatar(slot='avatar' src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png')
 </template>
 <script>
@@ -21,11 +21,11 @@ export default {
     };
   },
   props: {
-    receivedBooks: {  
+    receivedBooks: {
       type: Array,
       required: true,
     },
-    borrowedBooks: {
+    receivedHistoryBooks: {
       type: Array,
       required: true,
     }

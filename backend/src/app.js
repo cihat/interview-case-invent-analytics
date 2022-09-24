@@ -66,7 +66,7 @@ app.all('*', (req, res, next) => {
 })
 
 app.use('/api/', indexRouter)
-app.use('/api/users', userRouter)
+app.use('/api/account', userRouter)
 app.use("/api/books", bookRouter)
 
 // catch 404 and forward to error handler

@@ -15,7 +15,7 @@ const userSchema = new Schema(
     username: { type: String, unique: true, required: false },
     email: { type: String, required: true, unique: true },
     sessionId: String,
-    borrowedBooks: [
+    receivedBooks: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Book',
@@ -24,7 +24,7 @@ const userSchema = new Schema(
         },
       },
     ],
-    receivedBooks: [
+    receivedHistoryBooks: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Book',

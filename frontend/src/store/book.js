@@ -15,7 +15,7 @@ const actions = {
   FETCH_BOOKS: 'fetchBooks',
   FETCH_BOOK: 'fetchBook',
   INIT: 'init',
-  BORROW_BOOK: 'borrowBook'
+  RECEIVE_BOOK: 'receiveBook'
 }
 
 const book = {
@@ -76,13 +76,10 @@ const book = {
 
       commit(mutations.SET_BOOK, res.data)
     },
-    async [actions.BORROW_BOOK]({ commit }, book) {
-      try {
-        const res = await axios.post(`/books/${book.id}/borrow`)
-        commit(mutations.SET_BOOK, res.data)
-      } catch (e) {
-        throw e
-      }
+    async [actions.RECEIVE_BOOK]({ commit }, bookId) {
+      const res = await axios.post(`/books/${bookId}/receive`)
+
+      commit(mutations.SET_BOOK, res.data)
     }
   }
 }

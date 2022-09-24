@@ -5,7 +5,7 @@ content-type: application/json
 ###
 
 # get a book
-GET http://localhost:3000/api/books/6324e9d4919e96593117ce9d HTTP/1.1
+GET http://localhost:3000/api/books/632f5c04110da633d19326af HTTP/1.1
 content-type: application/json
 
 ###
@@ -42,4 +42,4 @@ content-type: application/json
 
 # borrow book
 
-POST http://localhost:3000/api/books/6326289b73bc0a57c44b1cca/borrow HTTP/1.1
+POST http://localhost:3000/api/books/632f5c04110da633d19326af/receive HTTP/1.1

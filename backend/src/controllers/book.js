@@ -72,25 +72,27 @@ exports.deleteBook = async (req, res, next) => {
   }
 }
 
-exports.borrowBook = async (req, res, next) => {
+exports.receiveBook = async (req, res, next) => {
   try {
     const user = await userService.find(req.user._id)
     const book = await bookService.find(req.params.id)
 
     if (user.receivedBooks.includes(book._id)) {
-      return next({ message: 'You have already borrowed this book.', status: 400 })
+      return next({ message: 'You have already received this book.', status: 400 })
     }
 
     if (book.receivedBy) {
-      return next({ message: 'This book is already borrowed.', status: 400 })
+      return next({ message: 'This book is already received.', status: 400 })
     }
 
     if (user.receivedBooks.length >= 3) {
-      return next({ message: 'You have already borrowed 3 books.', status: 400 })
+      return next({ message: 'You have already received 3 books.', status: 400 })
     }
 
     user.receivedBooks.push(book._id)
-    book.receivedBy = user
+    user.receivedHistoryBooks.push(book._id)
+    book.receivedBy = user._id
+    book.receivedHistoryBys = user._id
 
     await user.save()
     await book.save()

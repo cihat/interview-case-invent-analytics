@@ -3,10 +3,6 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'dashboard',
-  components: {
-
-  },
-  data() { }
 }
 </script>
 

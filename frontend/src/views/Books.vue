@@ -6,7 +6,8 @@
       //- a-button(type='primary' @click='showModal') Add Todo
       Modal
     div(slot='filterDropdown' slot-scope='{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }' style='padding: 8px')
-      a-input(v-ant-ref='c => (searchInput = c)' :placeholder='`Search ${column.dataIndex}`' :value='selectedKeys[0]' style='width: 188px; margin-bottom: 8px; display: block;' @change='e => setSelectedKeys(e.target.value ? [e.target.value] : [])' @pressenter='() => handleSearch(selectedKeys, confirm, column.dataIndex)')
+      a-input(v-ant-ref='c => (searchInput = c)' :placeholder='`Search ${column.dataIndex}`' :value='selectedKeys[0]' style='width: 188px; margin-bottom: 8px; display: block;'
+      @change='e => setSelectedKeys(e.target.value ? [e.target.value] : [])' @pressenter='() => handleSearch(selectedKeys, confirm, column.dataIndex)')
       a-button(type='primary' icon='search' size='small' style='width: 90px; margin-right: 8px' @click='() => handleSearch(selectedKeys, confirm, column.dataIndex)')
         | Search
       a-button(size='small' style='width: 90px' @click='() => handleReset(clearFilters)')
@@ -25,8 +26,8 @@
     a-rate(slot='isbn' v-model="value")
     a-button(slot='_id' slot-scope='id')
       a(:href="`/books/${id}`") {{ id }}
-    a-button(type="primary" slot='receive-action' slot-scope='id, receivedBy' @click='handleBorrowBook(id)' :disabled="receivedBy")
-      | {{ receivedBy.length > 0 ? 'Received' : 'Receive' }}
+    a-button(type="primary" slot='receive-action' slot-scope='id, book' @click='handleReceiveBook(book)' :disabled="book.receivedBy")
+      | {{ book.receivedBy ? 'Received' : 'Receive' }}
     a-button(type="danger" slot='delete-action' slot-scope='_id') Delete
     //- book-item
 </template>
@@ -150,9 +151,9 @@ export default {
   },
   computed: {
     ...mapState('book', ['books', 'book']),
-    ...mapActions('book', ['fetchBooks', 'deleteBook', "borrowBook"]),
   },
   methods: {
+    ...mapActions('book', ['fetchBooks', "receiveBook", 'deleteBook']),
     handleSearch(selectedKeys, confirm, dataIndex) {
       confirm();
       this.searchText = selectedKeys[0];
@@ -163,12 +164,12 @@ export default {
       clearFilters();
       this.searchText = '';
     },
-    async handleBorrowBook(id) {
+    async handleReceiveBook(book) {
+      console.log('book: ', book._id)
       try {
-        await this.borrowBook(id)
-        message.success(`Borrowed book 🎉 with id ${id}`)
+        await this.receiveBook(book._id)
+        message.success(`Borrowed book 🎉 with id ${book._id}`)
       } catch (e) {
-        console.log('esadf;lk', e)
         notification.error({
           message: 'Error',
           description: e.response?.data?.message ?? e.message ?? 'An unknown error occured'
