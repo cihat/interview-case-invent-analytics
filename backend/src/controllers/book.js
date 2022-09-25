@@ -16,6 +16,10 @@ exports.findBooks = async (req, res, next) => {
 }
 
 exports.createBook = async (req, res, next) => {
+  console.log('body', req.body)
+  if (!req.body) {
+    return next({ message: 'Book is required.', status: 400 })
+  }
   try {
     const book = await bookService.createBook(req.body)
 

@@ -8,7 +8,7 @@ a-form(:form='form' :label-col='{ span: 5 }' :wrapper-col='{ span: 12 }' @submit
     a-input(v-decorator="['description', { rules: [{ required: true, message: 'Please input book description!' }] }]")
   a-form-item(:wrapper-col='{ span: 12, offset: 5 }')
     a-button(type='primary' html-type='submit')
-      | Submit
+      | Add Book
 </template>
 
 <script>
@@ -22,27 +22,27 @@ export default {
       form: this.$form.createForm(this, { name: 'coordinated' }),
     };
   },
-  computed: {
-    ...mapActions('book', ['createBook']),
-  },
   methods: {
+    ...mapActions('book', ['createBook']),
     handleSubmit(e) {
       e.preventDefault()
       this.form.validateFieldsAndScroll(async (err, values) => {
-        // if (err) return
-
+        if (!values.title || !values.author || !values.description) {
+          message.error('Please fill all fields')
+          return
+        }
         try {
-          await this.createForm(values)
+          await this.createBook(values)
           message.success("Creted book successfully 🎉")
-          this.$router.push('/')
+          this.$router.push('/books')
         } catch (e) {
           notification.error({
             message: 'Error',
-            description: e?.message
+            description: e.response?.data?.message ?? e.message ?? 'An unknown error occured'
           })
         }
         finally {
-          console.log('finally')
+          this.fetchBooks()
         }
       })
     },

@@ -49,20 +49,18 @@ const book = {
     async [actions.INIT]({ dispatch }) {
       await dispatch(actions.FETCH_BOOKS)
     },
-    async [actions.CREATE_BOOK](book) {
-      try {
-        await axios.post('/books', { book })
-      } catch (e) {
-        throw e
-      }
+    async [actions.CREATE_BOOK]({ commit }, book) {
+      console.log('book', book)
+      await axios.post('/books', book)
+      commit(mutations.CREATE_BOOK, book)
     },
     async [actions.UPDATE_BOOK]({ commit }, book) {
       const res = await axios.patch(`/books/${book.id}`, { book })
 
       commit(mutations.UPDATE_BOOK, res.data)
     },
-    async [actions.DELETE_BOOK]({ commit }, book) {
-      await axios.delete(`/books/${book.id}`)
+    async [actions.DELETE_BOOK]({ commit }, bookId) {
+      await axios.delete(`/books/${bookId}`)
 
       commit(mutations.DELETE_BOOK, book)
     },

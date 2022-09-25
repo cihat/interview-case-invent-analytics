@@ -4,7 +4,8 @@
   a-table(:columns="columns" :data-source="books" :row-key="record => record._id" :pagination="{ pageSize: 10 }" bordered size="large")
     template(#title='books')
       //- a-button(type='primary' @click='showModal') Add Todo
-      Modal
+      Modal(componentName='add-book' )
+        CreateBook
     div(slot='filterDropdown' slot-scope='{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }' style='padding: 8px')
       a-input(v-ant-ref='c => (searchInput = c)' :placeholder='`Search ${column.dataIndex}`' :value='selectedKeys[0]' style='width: 188px; margin-bottom: 8px; display: block;'
       @change='e => setSelectedKeys(e.target.value ? [e.target.value] : [])' @pressenter='() => handleSearch(selectedKeys, confirm, column.dataIndex)')
@@ -28,13 +29,15 @@
       a(:href="`/books/${id}`") {{ id }}
     a-button(type="primary" slot='receive-action' slot-scope='id, book' @click='handleReceiveBook(book)' :disabled="book.receivedBy")
       | {{ book.receivedBy ? 'Received' : 'Receive' }}
-    a-button(type="danger" slot='delete-action' slot-scope='_id') Delete
+    a-button(type="danger" slot='delete-action' slot-scope='_id, book' @click='handleDeleteBook(book)') Delete
     //- book-item
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import BookItem from '../components/BookItem.vue';
-import SubHeader from "../components/SubHeader"; import book from '../store/book';
+import SubHeader from "../components/SubHeader";
+import book from '../store/book';
+import CreateBook from "../components/CreateBook.vue"
 import { message, notification } from 'ant-design-vue'
 import Modal from "../components/Modal.vue"
 
@@ -127,7 +130,7 @@ const columns = [
     title: "Delete",
     key: "delete-action",
     width: "10%",
-    dataIndex: "_id",
+    dataIndex: "_id, receivedBy",
     scopedSlots: { customRender: "delete-action" },
   },
 ];
@@ -137,7 +140,8 @@ export default {
   components: {
     BookItem,
     SubHeader,
-    Modal
+    Modal,
+    CreateBook
   },
   data() {
     return {
@@ -177,7 +181,21 @@ export default {
       } finally {
         this.fetchBooks()
       }
-    }
+    },
+    async handleDeleteBook(book) {
+      console.log('book: ', book._id)
+      try {
+        await this.deleteBook(book._id)
+        message.success(`Deleted book 🎉 with id ${book._id}`)
+      } catch (e) {
+        notification.error({
+          message: 'Error',
+          description: e.response?.data?.message ?? e.message ?? 'An unknown error occured'
+        })
+      } finally {
+        this.fetchBooks()
+      }
+    },
   }
 }
 </script>

@@ -2,14 +2,19 @@
 div
   a-button(type='primary' @click='showModal') Add Todo
   a-modal(title='Title' :visible='visible' :confirm-loading='confirmLoading' @ok='handleOk' @cancel='handleCancel')
-    CreateBook
+    slot
 </template>
 <script>
-import CreateBook from "../components/CreateBook.vue"
-
 export default {
-  components: {
-    CreateBook
+  props: {
+    component: {
+      // type: Object,
+      required: true
+    },
+    componentName: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
